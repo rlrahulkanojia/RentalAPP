@@ -32,17 +32,17 @@ const DashboardPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   
-  const { user } = useSelector((state: RootState) => state.auth);
-  const { properties, myProperties, isLoading: propertiesLoading } = useSelector((state: RootState) => state.property);
-  const { contracts, isLoading: contractsLoading } = useSelector((state: RootState) => state.contract);
-  const { tenantProfile, isRegistered, isLoading: tenantLoading } = useSelector((state: RootState) => state.tenant);
+  const { user } = useSelector((state: RootState) => state.auth as any);
+  const { properties, myProperties, isLoading: propertiesLoading } = useSelector((state: RootState) => state.property as any);
+  const { contracts, isLoading: contractsLoading } = useSelector((state: RootState) => state.contract as any);
+  const { tenantProfile, isRegistered, isLoading: tenantLoading } = useSelector((state: RootState) => state.tenant as any);
   
   const isLoading = propertiesLoading || contractsLoading || tenantLoading;
   
   useEffect(() => {
     if (user) {
       if (user.isPropertyOwner) {
-        dispatch(fetchProperties());
+        dispatch(fetchProperties({}));
       }
       
       if (user.isTenant || user.isPropertyOwner) {
@@ -173,7 +173,7 @@ const DashboardPage: React.FC = () => {
                 </Typography>
               ) : (
                 <List dense>
-                  {myProperties.slice(0, 5).map((property) => (
+                  {myProperties.slice(0, 5).map((property: any) => (
                     <ListItem
                       key={property.id}
                       button
@@ -214,7 +214,7 @@ const DashboardPage: React.FC = () => {
                 </Typography>
               ) : (
                 <List dense>
-                  {contracts.slice(0, 5).map((contract) => (
+                  {contracts.slice(0, 5).map((contract: any) => (
                     <ListItem
                       key={contract.id}
                       button
@@ -246,7 +246,7 @@ const DashboardPage: React.FC = () => {
             Featured Properties
           </Typography>
           <Grid container spacing={3}>
-            {properties.slice(0, 3).map((property) => (
+            {properties.slice(0, 3).map((property: any) => (
               <Grid item xs={12} sm={6} md={4} key={property.id}>
                 <Card>
                   <Box
