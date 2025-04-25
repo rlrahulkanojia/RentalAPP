@@ -94,6 +94,20 @@ After installing PostgreSQL, you need to create a database for the Property Rent
    GRANT ALL PRIVILEGES ON DATABASE property_rental_db TO rental_user;
    ```
 
+5. Connect to the new database and grant schema privileges:
+   ```sql
+   \c property_rental_db
+   
+   -- Grant schema privileges
+   GRANT ALL ON SCHEMA public TO rental_user;
+   GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO rental_user;
+   GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO rental_user;
+   GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO rental_user;
+   
+   -- Allow the user to create tables
+   ALTER USER rental_user CREATEDB;
+   ```
+
 5. Connect to the new database:
    ```sql
    \c property_rental_db
